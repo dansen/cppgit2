@@ -284,7 +284,7 @@ public:
   oid hashfile(const std::string &path, object::object_type type) const;
 
   // Retrieve and resolve the reference pointed at by HEAD.
-  reference head() const;
+  reference* head() const;
 
   // Retrieve the referenced HEAD for the worktree
   reference head_for_worktree(const std::string &name) const;
@@ -1166,7 +1166,7 @@ public:
   revparse_to_object_and_reference(const std::string &spec) const;
 
   // Find a single object, as specified by a revision string.
-  object revparse_to_object(const std::string &spec) const;
+  object* revparse_to_object(const std::string &spec) const;
 
   /*
    * REVWALK API
@@ -1358,7 +1358,7 @@ public:
    */
 
   // Convert a tree entry to the git_object it points to.
-  object tree_entry_to_object(const tree::entry &entry) const;
+  object *tree_entry_to_object(const tree::entry &entry) const;
 
   // Lookup a tree object from the repository.
   tree lookup_tree(const oid &id) const;

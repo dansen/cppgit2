@@ -197,9 +197,9 @@ oid repository::hashfile(const std::string &path, object::object_type type) cons
   return hashfile(path, type, path);
 }
 
-reference repository::head() const {
-  reference result(nullptr, ownership::user);
-  if (git_repository_head(&result.c_ptr_, c_ptr_))
+reference* repository::head() const {
+  reference* result = new reference(nullptr, ownership::user);
+  if (git_repository_head(&result->c_ptr_, c_ptr_))
     throw git_exception();
   return result;
 }
@@ -1588,9 +1588,9 @@ repository::revparse_to_object_and_reference(const std::string &spec) const {
   return std::pair<object, reference>{object_out, reference_out};
 }
 
-object repository::revparse_to_object(const std::string &spec) const {
-  object result(nullptr, ownership::user);
-  if (git_revparse_single(&result.c_ptr_, c_ptr_, spec.c_str()))
+object* repository::revparse_to_object(const std::string &spec) const {
+  object * result = new object(nullptr, ownership::user);
+  if (git_revparse_single(&result->c_ptr_, c_ptr_, spec.c_str()))
     throw git_exception();
   return result;
 }
@@ -1911,9 +1911,9 @@ transaction repository::create_transaction() const {
   return result;
 }
 
-object repository::tree_entry_to_object(const tree::entry &entry) const {
-  object result(nullptr, ownership::user);
-  if (git_tree_entry_to_object(&result.c_ptr_, c_ptr_, entry.c_ptr()))
+object * repository::tree_entry_to_object(const tree::entry &entry) const {
+  object * result = new object(nullptr, ownership::user);
+  if (git_tree_entry_to_object(&result->c_ptr_, c_ptr_, entry.c_ptr()))
     throw git_exception();
   return result;
 }

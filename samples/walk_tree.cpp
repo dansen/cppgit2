@@ -8,7 +8,7 @@ int main(int argc, char **argv) {
 
     // Get the HEAD tree
     auto head = repo.head();
-    auto head_commit = repo.lookup_commit(head.target());
+    auto head_commit = repo.lookup_commit(head->target());
     auto tree = head_commit.tree();
 
     tree.walk(tree::traversal_mode::preorder,
